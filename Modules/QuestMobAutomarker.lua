@@ -112,14 +112,14 @@ local function GetOrCreateNameplateIndicator(nameplateFrame)
     end
 
     local ind = CreateFrame("Frame", nil, UIParent)
-    ind:SetSize(40, 24)
+    ind:SetSize(40, 20)
     ind:SetFrameStrata("HIGH")
     ind:SetFrameLevel(200)
     ind.nameplateRef = nameplateFrame
-    ind:SetPoint("BOTTOM", nameplateFrame, "TOP", 0, 6)
+    ind:SetPoint("BOTTOM", nameplateFrame, "TOP", 0, 1)
 
     local icon = ind:CreateTexture(nil, "OVERLAY")
-    icon:SetSize(18, 18)
+    icon:SetSize(16, 16)
     icon:SetPoint("LEFT", ind, "LEFT", 0, 0)
     if icon.SetAtlas and C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo("QuestNormal") then
         icon:SetAtlas("QuestNormal")
@@ -128,11 +128,10 @@ local function GetOrCreateNameplateIndicator(nameplateFrame)
     end
     ind.icon = icon
 
-    local text = ind:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    local text = ind:CreateFontString(nil, "OVERLAY")
+    text:SetFont("Fonts\\FRIZQT__.TTF", 11, "OUTLINE")
     text:SetPoint("LEFT", icon, "RIGHT", 2, 0)
-    text:SetTextColor(1, 0.85, 0.2, 1)
-    text:SetShadowColor(0, 0, 0, 1)
-    text:SetShadowOffset(1, -1)
+    text:SetTextColor(1, 0.85, 0.25, 1)
     ind.text = text
 
     nameplateIndicators[nameplateFrame] = ind
@@ -144,7 +143,7 @@ local function UpdateNameplate(unit)
     local nameplateFrame = C_NamePlate.GetNamePlateForUnit(unit)
     if not nameplateFrame then return end
 
-    local db = ns.db or WOWForeverAddonDB
+    local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
     local enabled = db and db.QuestNameplateHighlight
 
     if not enabled or UnitIsDead(unit) or UnitIsPlayer(unit) or not UnitCanAttack("player", unit) then
@@ -158,13 +157,13 @@ local function UpdateNameplate(unit)
     if isQuest then
         local ind = GetOrCreateNameplateIndicator(nameplateFrame)
         ind:ClearAllPoints()
-        ind:SetPoint("BOTTOM", nameplateFrame, "TOP", 0, 6)
+        ind:SetPoint("BOTTOM", nameplateFrame, "TOP", 0, 1)
         if cur and goal then
             ind.text:SetText(string.format("%s/%s", cur, goal))
-            ind:SetWidth(20 + ind.text:GetStringWidth())
+            ind:SetWidth(18 + ind.text:GetStringWidth())
         else
             ind.text:SetText("")
-            ind:SetWidth(20)
+            ind:SetWidth(18)
         end
         ind:Show()
     else
@@ -187,7 +186,7 @@ local function OnNameplateRemoved(unit)
 end
 
 local function RefreshAllNameplates()
-    local db = ns.db or WOWForeverAddonDB
+    local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
     local enabled = db and db.QuestNameplateHighlight
 
     if not enabled then
@@ -209,8 +208,20 @@ local function RefreshAllNameplates()
 end
 ns.RefreshQuestNameplates = RefreshAllNameplates
 
+-- Helper to check if setting a raid target marker is permitted without errors
+local function CanSetRaidMarker()
+    local inInstance, instanceType = IsInInstance()
+    if inInstance and (instanceType == "party" or instanceType == "pvp" or instanceType == "raid") then
+        return false -- Strictly disabled in dungeons/raids to comply with Blizzard instance protection rules
+    end
+    if IsInGroup() then
+        return UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")
+    end
+    return true -- Solo player in open world
+end
+
 local function ApplyPendingMark()
-    if InCombatLockdown() then return end
+    if InCombatLockdown() or not CanSetRaidMarker() then return end
     if pendingMarkUnit and UnitExists(pendingMarkUnit) and not UnitIsDead(pendingMarkUnit) then
         if GetRaidTargetIndex and GetRaidTargetIndex(pendingMarkUnit) == nil then
             SetRaidTarget(pendingMarkUnit, 4) -- 4 = Orange Circle (Quest Target)
@@ -221,7 +232,7 @@ end
 
 local function OnTargetChanged()
     local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
-    if not db or not db.QuestAutoMarkTarget then return end
+    if not db or not db.QuestAutoMarkTarget or not CanSetRaidMarker() then return end
 
     if not UnitExists("target") or UnitIsDead("target") or UnitIsPlayer("target") or UnitIsFriend("player", "target") then
         return

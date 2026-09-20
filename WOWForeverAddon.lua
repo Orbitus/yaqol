@@ -1,2 +1,0 @@
--- WOWForeverAddon: Refactored into Core.lua and Modules/
--- Refer to WOWForeverAddon.toc for file loading sequence.

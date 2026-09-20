@@ -198,7 +198,7 @@ qolFrame:SetScript("OnEvent", function(self, event, arg1, arg2)
             if numChoices <= 1 then
                 GetQuestReward(1)
             else
-                print("|cffc866ff[WOWForeverAddon]|r Multiple quest rewards available. Please select your reward manually.")
+                print("|cffc866ff[YAQoL]|r Multiple quest rewards available. Please select your reward manually.")
             end
         end
     elseif event == "GOSSIP_SHOW" then
@@ -227,7 +227,7 @@ qolFrame:SetScript("OnEvent", function(self, event, arg1, arg2)
                 local money = GetMoney()
                 if money >= repairCost then
                     RepairAllItems(false)
-                    print("|cffc866ff[WOWForeverAddon]|r Repaired gear for " .. ns.FormatMoney(repairCost) .. ".")
+                    print("|cffc866ff[YAQoL]|r Repaired gear for " .. ns.FormatMoney(repairCost) .. ".")
                 end
             end
         end
@@ -270,7 +270,7 @@ qolFrame:SetScript("OnEvent", function(self, event, arg1, arg2)
                     if index > #itemsToSell then
                         ticker:Cancel()
                         if totalEarned > 0 then
-                            print("|cffc866ff[WOWForeverAddon]|r Sold " .. #itemsToSell .. " grey junk items for " .. ns.FormatMoney(totalEarned) .. ".")
+                            print("|cffc866ff[YAQoL]|r Sold " .. #itemsToSell .. " grey junk items for " .. ns.FormatMoney(totalEarned) .. ".")
                         end
                         return
                     end

@@ -1652,7 +1652,52 @@ viewPopBtn:SetScript("OnClick", function()
     end
 end)
 
-p8Content:SetHeight(540)
+p8Content:SetHeight(770)
+
+-- Card 5: Vibe Coding & Project Disclaimer
+local cDisclaimer = CreateFrame("Frame", nil, p8Content, ns.backdropTemplate)
+cDisclaimer:SetSize(455, 215)
+cDisclaimer:SetPoint("TOPLEFT", cChangelog, "BOTTOMLEFT", 0, -12)
+ns.ApplyModernBackdrop(cDisclaimer, 0.06, 0.03, 0.1, 0.8, 0.28, 0.12, 0.45, 0.6)
+
+local dcTitle = cDisclaimer:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+dcTitle:SetPoint("TOPLEFT", cDisclaimer, "TOPLEFT", 16, -12)
+dcTitle:SetText("|cffda99ffVibe Coding & Project Disclaimer|r")
+
+local dcText = cDisclaimer:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+dcText:SetPoint("TOPLEFT", dcTitle, "BOTTOMLEFT", 0, -6)
+dcText:SetPoint("RIGHT", cDisclaimer, "RIGHT", -16, 0)
+dcText:SetJustifyH("LEFT")
+dcText:SetText(
+    "|cffe0d4f5Dieses Addon ist ein reines Hobby- & Spaßprojekt aus persönlichem Interesse am Thema WoW UI-Design & AI Vibecoding.|r\n\n" ..
+    "|cffcccccc• |cffffffff100% Vibecoded:|r Das Addon wurde fast ausschließlich via AI/Vibecoding erstellt, mit nur minimalen manuellen Code-Teilen.\n" ..
+    "• |cffffffffKein Support:|r Es gibt keinen garantierten Support. Bugs können gerne auf GitHub gemeldet werden. Wenn Zeit & Lust da sind, werden sie gefixt.\n" ..
+    "• |cffffffffFork & Share:|r Jeder ist herzlich eingeladen, sich ein eigenen Branch/Copy zu machen und selbst weiterzuentwickeln!|r"
+)
+
+local ghBox = CreateFrame("EditBox", "YAQoLGitHubEditBox", cDisclaimer, ns.backdropTemplate)
+ghBox:SetSize(270, 26)
+ghBox:SetPoint("BOTTOMLEFT", cDisclaimer, "BOTTOMLEFT", 16, 14)
+ghBox:SetAutoFocus(false)
+ghBox:SetFontObject("GameFontHighlightSmall")
+ghBox:SetTextInsets(8, 8, 0, 0)
+ghBox:SetText("https://github.com/Orbitus/yaqol")
+ns.ApplyModernBackdrop(ghBox, 0.04, 0.02, 0.07, 0.9, 0.55, 0.2, 0.85, 0.9)
+ghBox:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+ghBox:SetScript("OnMouseUp", function(self) self:HighlightText() end)
+
+local ghBtn = CreateFrame("Button", nil, cDisclaimer, ns.backdropTemplate)
+ghBtn:SetSize(140, 26)
+ghBtn:SetPoint("LEFT", ghBox, "RIGHT", 10, 0)
+ns.ApplyModernBackdrop(ghBtn, 0.4, 0.16, 0.68, 0.9, 0.75, 0.35, 1.0, 1)
+local ghTxt = ghBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+ghTxt:SetPoint("CENTER", ghBtn, "CENTER", 0, 0)
+ghTxt:SetText("|cffffffffCopy GitHub URL|r")
+ghBtn:SetScript("OnClick", function()
+    ghBox:HighlightText()
+    ghBox:SetFocus()
+    print("|cffc866ff[YAQoL]|r Link selected! Press |cffffffffCtrl+C|r to copy |cffda99ffhttps://github.com/Orbitus/yaqol|r")
+end)
 
 ----------------------------------------------------
 
@@ -2635,7 +2680,7 @@ function ns.CreateOptionsGUI()
     topBar:SetColorTexture(0.72, 0.25, 1.0, 1.0)
 
     -- Title & Subtitle for YAQoL
-    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.13"
+    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.14"
     local title = optionsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", optionsFrame, "TOPLEFT", 22, -16)
     title:SetText("|cffc866ffYAQoL|r  |cff775599•|r  |cffffffffYet Another Quality of Life|r  |cff00ffccv" .. tostring(verStr) .. "|r")

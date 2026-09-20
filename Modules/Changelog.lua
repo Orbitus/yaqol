@@ -4,6 +4,19 @@ local ADDON_NAME, ns = ...
 -- Centralized Version History & Changelog Database
 ns.CHANGELOG_DATA = {
     {
+        version = "2.0.14",
+        date = "2026-09-20",
+        title = "Vibe Coding & Project Disclaimer",
+        general = {
+            "Added Vibe Coding & Hobby Project Disclaimer card to Credits & Socials panel.",
+            "Included copyable GitHub URL link for community bug reports and open-source forks."
+        },
+        features = {
+            "Interactive Copy GitHub URL button in options menu."
+        },
+        fixes = {}
+    },
+    {
         version = "2.0.13",
         date = "2026-09-20",
         title = "Nameplate Quest Indicator Anchoring & Quest Giver Filter",
@@ -133,7 +146,7 @@ local popupFrame = nil
 
 -- Create & Show First-Login Version Changelog Popup
 function ns.ShowChangelogPopup(versionOverride)
-    local curVersion = versionOverride or ((C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.13")
+    local curVersion = versionOverride or ((C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.14")
     
     -- Find entry for curVersion or fallback to latest entry
     local entry = ns.CHANGELOG_DATA[1]
@@ -305,7 +318,7 @@ end
 
 -- Automatic login check for new addon version
 function ns.CheckVersionPopupOnLogin()
-    local curVersion = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.13"
+    local curVersion = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.14"
     local db = ns.db or WOWForeverAddonDB
     if not db then return end
 

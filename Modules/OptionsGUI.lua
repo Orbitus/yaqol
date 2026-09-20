@@ -1608,7 +1608,157 @@ cmdList:SetText(
     "|cff665588Legacy aliases: /wfa, /wowforever|r"
 )
 
+-- Card 4: Changelog & Release Notes Quick Access
+local cChangelog = CreateFrame("Frame", nil, p8Content, ns.backdropTemplate)
+cChangelog:SetSize(455, 95)
+cChangelog:SetPoint("TOPLEFT", cCommands, "BOTTOMLEFT", 0, -12)
+ns.ApplyModernBackdrop(cChangelog, 0.08, 0.04, 0.13, 0.9, 0.65, 0.25, 0.95, 0.9)
+
+local clTitle = cChangelog:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+clTitle:SetPoint("TOPLEFT", cChangelog, "TOPLEFT", 16, -12)
+clTitle:SetText("|cffc866ffChangelog & Update History|r")
+
+local clSub = cChangelog:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+clSub:SetPoint("TOPLEFT", clTitle, "BOTTOMLEFT", 0, -4)
+clSub:SetText("|cffa388ccEinblick in alle Versionen, neue Funktionen & Bugfixes.|r")
+
+local viewClBtn = CreateFrame("Button", nil, cChangelog, ns.backdropTemplate)
+viewClBtn:SetSize(190, 24)
+viewClBtn:SetPoint("BOTTOMLEFT", cChangelog, "BOTTOMLEFT", 16, 12)
+ns.ApplyModernBackdrop(viewClBtn, 0.45, 0.16, 0.72, 0.9, 0.85, 0.4, 1.0, 1)
+
+local viewClTxt = viewClBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+viewClTxt:SetPoint("CENTER", viewClBtn, "CENTER", 0, 0)
+viewClTxt:SetText("|cffffffffChangelog öffnen|r")
+
+viewClBtn:SetScript("OnClick", function()
+    if switchPageFn then
+        switchPageFn(10)
+    end
+end)
+
+local viewPopBtn = CreateFrame("Button", nil, cChangelog, ns.backdropTemplate)
+viewPopBtn:SetSize(210, 24)
+viewPopBtn:SetPoint("LEFT", viewClBtn, "RIGHT", 10, 0)
+ns.ApplyModernBackdrop(viewPopBtn, 0.14, 0.07, 0.22, 0.9, 0.45, 0.2, 0.65, 0.8)
+
+local viewPopTxt = viewPopBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+viewPopTxt:SetPoint("CENTER", viewPopBtn, "CENTER", 0, 0)
+viewPopTxt:SetText("|cffda99ff'What's New' Popup anzeigen|r")
+
+viewPopBtn:SetScript("OnClick", function()
+    if ns.ShowChangelogPopup then
+        ns.ShowChangelogPopup()
+    end
+end)
+
+p8Content:SetHeight(540)
+
 ----------------------------------------------------
+
+end
+
+local function CreatePage10(contentArea)
+-- PAGE 10: CHANGELOG & UPDATES
+----------------------------------------------------
+local p10 = CreateFrame("Frame", nil, contentArea)
+p10:SetAllPoints()
+p10:Hide()
+contentPanels[10] = p10
+
+local p10Scroll = CreateFrame("ScrollFrame", "YAQoLP10ScrollFrame", p10, "UIPanelScrollFrameTemplate")
+p10Scroll:SetPoint("TOPLEFT", p10, "TOPLEFT", 0, 0)
+p10Scroll:SetPoint("BOTTOMRIGHT", p10, "BOTTOMRIGHT", -10, 0)
+ns.StyleCustomScrollFrame(p10Scroll)
+
+local p10Content = CreateFrame("Frame", "YAQoLP10Content", p10Scroll)
+p10Content:SetSize(460, 600)
+p10Scroll:SetScrollChild(p10Content)
+p10.content = p10Content
+
+-- Card 1: Banner & Action Button
+local cBanner = CreateFrame("Frame", nil, p10Content, ns.backdropTemplate)
+cBanner:SetSize(455, 76)
+cBanner:SetPoint("TOPLEFT", p10Content, "TOPLEFT", 0, 0)
+ns.ApplyModernBackdrop(cBanner, 0.08, 0.04, 0.13, 0.9, 0.65, 0.25, 0.95, 0.9)
+
+local bTitle = cBanner:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+bTitle:SetPoint("TOPLEFT", cBanner, "TOPLEFT", 16, -12)
+bTitle:SetText("|cffc866ffChangelog & Release Notes|r")
+
+local bSub = cBanner:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+bSub:SetPoint("TOPLEFT", bTitle, "BOTTOMLEFT", 0, -4)
+bSub:SetText("|cffa388ccAlle Updates, neuen Funktionen und Bugfixes im Überblick.|r")
+
+local popBtn = CreateFrame("Button", nil, cBanner, ns.backdropTemplate)
+popBtn:SetSize(180, 24)
+popBtn:SetPoint("BOTTOMRIGHT", cBanner, "BOTTOMRIGHT", -12, 12)
+ns.ApplyModernBackdrop(popBtn, 0.45, 0.16, 0.72, 0.9, 0.85, 0.4, 1.0, 1)
+
+local popTxt = popBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+popTxt:SetPoint("CENTER", popBtn, "CENTER", 0, 0)
+popTxt:SetText("|cffffffff'What's New' Popup öffnen|r")
+
+popBtn:SetScript("OnClick", function()
+    if ns.ShowChangelogPopup then
+        ns.ShowChangelogPopup()
+    end
+end)
+
+local yOffset = -88
+local dataList = ns.CHANGELOG_DATA or {}
+
+for _, item in ipairs(dataList) do
+    local card = CreateFrame("Frame", nil, p10Content, ns.backdropTemplate)
+    card:SetPoint("TOPLEFT", p10Content, "TOPLEFT", 0, yOffset)
+    ns.ApplyModernBackdrop(card, 0.06, 0.03, 0.1, 0.85, 0.35, 0.15, 0.55, 0.7)
+
+    local vHeader = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    vHeader:SetPoint("TOPLEFT", card, "TOPLEFT", 14, -12)
+    vHeader:SetText(string.format("|cffc866ffv%s|r  |cffffffff%s|r", item.version, item.title or ""))
+
+    local vDate = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    vDate:SetPoint("TOPRIGHT", card, "TOPRIGHT", -14, -12)
+    vDate:SetText("|cff775599" .. (item.date or "") .. "|r")
+
+    local cY = -34
+
+    local function RenderSubSection(secTitle, secColorHex, secIcon, items)
+        if not items or #items == 0 then return end
+
+        local sHead = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        sHead:SetPoint("TOPLEFT", card, "TOPLEFT", 14, cY)
+        sHead:SetText(string.format("%s |c%s%s|r", secIcon, secColorHex, secTitle))
+        cY = cY - 18
+
+        for _, text in ipairs(items) do
+            local bullet = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            bullet:SetPoint("TOPLEFT", card, "TOPLEFT", 26, cY)
+            bullet:SetPoint("RIGHT", card, "RIGHT", -14, 0)
+            bullet:SetJustifyH("LEFT")
+            bullet:SetText("|cff888888•|r |cffffffff" .. text .. "|r")
+            cY = cY - 16
+        end
+
+        cY = cY - 6
+    end
+
+    -- 1. General
+    RenderSubSection("General", "ffc866ff", "|cffc866ff🟣|r", item.general)
+
+    -- 2. New Functions / Removed Functions
+    RenderSubSection("New Functions / Removed Functions", "ff00ffcc", "|cff00ffcc🟢|r", item.features)
+
+    -- 3. Bugfixes
+    RenderSubSection("Bugfixes", "ffff7799", "|cffff7799🔧|r", item.fixes)
+
+    local cardHeight = math.abs(cY) + 10
+    card:SetSize(455, cardHeight)
+
+    yOffset = yOffset - cardHeight - 12
+end
+
+p10Content:SetHeight(math.abs(yOffset) + 40)
 
 end
 
@@ -2485,7 +2635,7 @@ function ns.CreateOptionsGUI()
     topBar:SetColorTexture(0.72, 0.25, 1.0, 1.0)
 
     -- Title & Subtitle for YAQoL
-    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.11"
+    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.12"
     local title = optionsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", optionsFrame, "TOPLEFT", 22, -16)
     title:SetText("|cffc866ffYAQoL|r  |cff775599•|r  |cffffffffYet Another Quality of Life|r  |cff00ffccv" .. tostring(verStr) .. "|r")
@@ -2539,6 +2689,7 @@ function ns.CreateOptionsGUI()
         { id = 4, category = "QUALITY OF LIFE", label = "Minimap HidingBar" },
         { id = 7, category = "PROFILES & SHARING", label = "Profiles & Export" },
         { id = 8, category = "COMMUNITY", label = "Credits & Socials" },
+        { id = 10, category = "COMMUNITY", label = "Changelog" },
         { id = 5, category = "DEVELOPMENT", label = "Debug Logs & DB Dump" },
     }
 
@@ -2622,6 +2773,7 @@ function ns.CreateOptionsGUI()
     CreatePage7(contentArea)
     CreatePage8(contentArea)
     CreatePage9(contentArea)
+    CreatePage10(contentArea)
     CreateSearchPanel(contentArea)
 
     -- Create Header Search Bar

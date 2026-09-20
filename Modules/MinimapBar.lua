@@ -56,7 +56,7 @@ function ns.CreateAddonMinimapButton()
     end)
 
     btn:SetScript("OnEnter", function(self)
-        local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.11"
+        local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.12"
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:ClearLines()
         GameTooltip:AddLine("|cffc866ffYAQoL|r  |cff00ffccv" .. tostring(verStr) .. "|r", 0.8, 0.4, 1.0)

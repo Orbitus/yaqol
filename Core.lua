@@ -431,6 +431,7 @@ coreFrame:SetScript("OnEvent", function(self, event, arg1)
                 if ns.UpdateHUD then ns.UpdateHUD() end
                 if ns.UpdateMinimapBar then ns.UpdateMinimapBar() end
                 if ns.UpdateXPBar then ns.UpdateXPBar() end
+                if ns.CheckVersionPopupOnLogin then ns.CheckVersionPopupOnLogin() end
             end)
         end
     elseif event == "UNIT_AURA" or event == "UNIT_PET" then

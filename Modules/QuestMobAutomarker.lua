@@ -209,6 +209,36 @@ local function RefreshAllNameplates()
 end
 ns.RefreshQuestNameplates = RefreshAllNameplates
 
+local function ApplyPendingMark()
+    if InCombatLockdown() then return end
+    if pendingMarkUnit and UnitExists(pendingMarkUnit) and not UnitIsDead(pendingMarkUnit) then
+        if GetRaidTargetIndex and GetRaidTargetIndex(pendingMarkUnit) == nil then
+            SetRaidTarget(pendingMarkUnit, 4) -- 4 = Orange Circle (Quest Target)
+        end
+    end
+    pendingMarkUnit = nil
+end
+
+local function OnTargetChanged()
+    local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
+    if not db or not db.QuestAutoMarkTarget then return end
+
+    if not UnitExists("target") or UnitIsDead("target") or UnitIsPlayer("target") or UnitIsFriend("player", "target") then
+        return
+    end
+
+    local isQuest = ns.IsQuestUnit("target")
+    if isQuest then
+        if GetRaidTargetIndex and GetRaidTargetIndex("target") == nil then
+            if InCombatLockdown() then
+                pendingMarkUnit = "target"
+            else
+                SetRaidTarget("target", 4)
+            end
+        end
+    end
+end
+
 ----------------------------------------------------
 -- EVENT DISPATCHER & LIFECYCLE
 ----------------------------------------------------

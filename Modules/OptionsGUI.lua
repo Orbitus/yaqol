@@ -2454,6 +2454,8 @@ function ns.CreateOptionsGUI()
     if optionsFrame then return end
 
     optionsFrame = CreateFrame("Frame", "WOWForeverAddonMainFrame", UIParent, ns.backdropTemplate)
+    tinsert(UISpecialFrames, "WOWForeverAddonMainFrame")
+    tinsert(UISpecialFrames, "YAQoLMainFrame")
     optionsFrame:SetSize(720, 580)
     optionsFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     optionsFrame:SetMovable(true)
@@ -2483,7 +2485,7 @@ function ns.CreateOptionsGUI()
     topBar:SetColorTexture(0.72, 0.25, 1.0, 1.0)
 
     -- Title & Subtitle for YAQoL
-    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.3"
+    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.4"
     local title = optionsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", optionsFrame, "TOPLEFT", 22, -16)
     title:SetText("|cffc866ffYAQoL|r  |cff775599•|r  |cffffffffYet Another Quality of Life|r  |cff00ffccv" .. tostring(verStr) .. "|r")

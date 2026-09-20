@@ -113,7 +113,7 @@ local isUpdaterRunning = false
 
 -- Cache button object references on element definition to avoid _G lookups
 local function CacheElementButtons(elem)
-    if not elem.buttonObjects then
+    if not elem.buttonObjects or #elem.buttonObjects == 0 then
         elem.buttonObjects = {}
         if elem.buttons then
             for _, btnName in ipairs(elem.buttons) do
@@ -127,7 +127,7 @@ end
 
 -- Utility: Resolve frame object by candidate global names
 function ns.GetElementFrame(elementDef)
-    if elementDef.cachedFrame then return elementDef.cachedFrame end
+    if elementDef.cachedFrame and elementDef.cachedFrame:IsShown() then return elementDef.cachedFrame end
     if elementDef.frames then
         for _, name in ipairs(elementDef.frames) do
             local f = _G[name]
@@ -137,7 +137,7 @@ function ns.GetElementFrame(elementDef)
             end
         end
     end
-    return nil
+    return elementDef.cachedFrame
 end
 
 -- Utility: Set alpha on frame container and/or button list
@@ -179,16 +179,20 @@ function ns.GetElementAlpha(elem, frame)
 end
 
 local function OnMouseoverUpdate(self, elapsed)
-    local needsUpdate = false
+    if not next(activeMouseoverElements) then
+        updater:SetScript("OnUpdate", nil)
+        isUpdaterRunning = false
+        return
+    end
+
     for key, data in pairs(activeMouseoverElements) do
         local elem = data.elem
-        local frame = data.frame
+        local frame = data.frame or ns.GetElementFrame(elem)
         local isOver = ns.IsMouseOverElement(elem, frame)
         local targetAlpha = isOver and 1.0 or 0.0
         local currentAlpha = ns.GetElementAlpha(elem, frame)
 
         if math_abs(currentAlpha - targetAlpha) > 0.01 then
-            needsUpdate = true
             local step = elapsed * 10
             local newAlpha = currentAlpha + (targetAlpha > currentAlpha and step or -step)
             if (targetAlpha > currentAlpha and newAlpha > targetAlpha) or (targetAlpha < currentAlpha and newAlpha < targetAlpha) then
@@ -197,24 +201,6 @@ local function OnMouseoverUpdate(self, elapsed)
             ns.SetElementAlpha(elem, newAlpha)
         else
             ns.SetElementAlpha(elem, targetAlpha)
-        end
-    end
-
-    -- If no element is actively animating and active set is empty or settled, put ticker to sleep
-    if not needsUpdate then
-        local anyAnimating = false
-        for key, data in pairs(activeMouseoverElements) do
-            local isOver = ns.IsMouseOverElement(data.elem, data.frame)
-            local targetAlpha = isOver and 1.0 or 0.0
-            local currentAlpha = ns.GetElementAlpha(data.elem, data.frame)
-            if math_abs(currentAlpha - targetAlpha) > 0.01 then
-                anyAnimating = true
-                break
-            end
-        end
-        if not anyAnimating then
-            updater:SetScript("OnUpdate", nil)
-            isUpdaterRunning = false
         end
     end
 end
@@ -226,6 +212,31 @@ local function StartMouseoverTicker()
     end
 end
 ns.WakeupMouseoverTicker = StartMouseoverTicker
+
+local function HookElementHover(elem)
+    if elem.yaqolHoverHooked then return end
+    elem.yaqolHoverHooked = true
+
+    local frame = ns.GetElementFrame(elem)
+    if frame and not frame.yaqolHoverHooked then
+        frame.yaqolHoverHooked = true
+        if frame.HookScript then
+            frame:HookScript("OnEnter", StartMouseoverTicker)
+            frame:HookScript("OnLeave", StartMouseoverTicker)
+        end
+    end
+
+    local buttons = CacheElementButtons(elem)
+    for _, b in ipairs(buttons) do
+        if b and not b.yaqolHoverHooked then
+            b.yaqolHoverHooked = true
+            if b.HookScript then
+                b:HookScript("OnEnter", StartMouseoverTicker)
+                b:HookScript("OnLeave", StartMouseoverTicker)
+            end
+        end
+    end
+end
 
 -- Apply state (SHOWN, HIDDEN, MOUSEOVER) to a specific frame/element
 function ns.ApplyFrameState(key, mode)
@@ -245,6 +256,7 @@ function ns.ApplyFrameState(key, mode)
         ns.SetElementAlpha(elem, 0.0)
     elseif mode == "MOUSEOVER" then
         activeMouseoverElements[key] = { elem = elem, frame = frame }
+        HookElementHover(elem)
         local isOver = ns.IsMouseOverElement(elem, frame)
         ns.SetElementAlpha(elem, isOver and 1.0 or 0.0)
         StartMouseoverTicker()
@@ -253,13 +265,14 @@ end
 
 -- Apply all saved states
 function ns.ApplyAllStates()
-    if not ns.isLoaded or not WOWForeverAddonDB then return end
+    local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
+    if not ns.isLoaded or not db then return end
     for _, elem in ipairs(ns.UI_ELEMENTS) do
-        local mode = WOWForeverAddonDB[elem.key]
+        local mode = db[elem.key]
         if mode == nil then mode = (ns.defaultSettings and ns.defaultSettings[elem.key]) or "SHOWN" end
         ns.ApplyFrameState(elem.key, mode)
     end
-    if WOWForeverAddonDB.MaxCameraZoom then
+    if db.MaxCameraZoom then
         SetCVar("cameraDistanceMaxZoomFactor", 2.6)
     end
 end

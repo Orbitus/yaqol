@@ -152,10 +152,11 @@ function ns.ScanMinimapButtons()
 end
 
 local function OnMinimapBarUpdate(self, elapsed)
-    if not ns.isLoaded or not WOWForeverAddonDB then return end
+    local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
+    if not ns.isLoaded or not db then return end
 
-    local isMouseoverMode = WOWForeverAddonDB.MinimapBarMouseover
-    local isHorizontal = (WOWForeverAddonDB.MinimapBarOrientation or "HORIZONTAL") == "HORIZONTAL"
+    local isMouseoverMode = db.MinimapBarMouseover
+    local isHorizontal = (db.MinimapBarOrientation or "HORIZONTAL") == "HORIZONTAL"
     local rawOver = (MouseIsOver and MouseIsOver(self)) or (self.IsMouseOver and self:IsMouseOver())
 
     -- Check children hover state
@@ -255,7 +256,8 @@ local function WakeupMinimapBarTicker()
 end
 
 function ns.UpdateMinimapBar()
-    if not ns.isLoaded or not WOWForeverAddonDB or not WOWForeverAddonDB.MinimapBarEnabled then
+    local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
+    if not ns.isLoaded or not db or not db.MinimapBarEnabled then
         if minimapBarFrame then minimapBarFrame:Hide() end
         return
     end
@@ -272,17 +274,19 @@ function ns.UpdateMinimapBar()
         minimapBarFrame:SetScript("OnDragStop", function(self)
             self:StopMovingOrSizing()
             local point, _, relativePoint, xOfs, yOfs = self:GetPoint()
+            local activeDB = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
 
-            if WOWForeverAddonDB and WOWForeverAddonDB.MinimapBarSnapToEdge ~= false then
+            if activeDB and activeDB.MinimapBarSnapToEdge ~= false then
                 local screenWidth = UIParent:GetWidth()
                 local screenHeight = UIParent:GetHeight()
                 local frameLeft = self:GetLeft()
                 local frameRight = self:GetRight()
                 local frameTop = self:GetTop()
                 local frameBottom = self:GetBottom()
+                local frameCenterX, frameCenterY = self:GetCenter()
 
-                if frameLeft and frameRight and frameTop and frameBottom and screenWidth and screenHeight then
-                    local snapThreshold = 30
+                if frameLeft and frameRight and frameTop and frameBottom and frameCenterX and frameCenterY and screenWidth and screenHeight then
+                    local snapThreshold = 25
                     local newPoint = point
                     local newRelPoint = relativePoint
                     local newX = xOfs
@@ -294,11 +298,13 @@ function ns.UpdateMinimapBar()
                         newPoint = "LEFT"
                         newRelPoint = "LEFT"
                         newX = 0
+                        newY = frameCenterY - (screenHeight / 2)
                         snappedX = true
                     elseif (screenWidth - frameRight) < snapThreshold then
                         newPoint = "RIGHT"
                         newRelPoint = "RIGHT"
                         newX = 0
+                        newY = frameCenterY - (screenHeight / 2)
                         snappedX = true
                     end
 
@@ -306,21 +312,27 @@ function ns.UpdateMinimapBar()
                         if snappedX then
                             newPoint = (newRelPoint == "LEFT") and "TOPLEFT" or "TOPRIGHT"
                             newRelPoint = newPoint
+                            newX = 0
+                            newY = 0
                         else
                             newPoint = "TOP"
                             newRelPoint = "TOP"
+                            newX = frameCenterX - (screenWidth / 2)
+                            newY = 0
                         end
-                        newY = 0
                         snappedY = true
                     elseif frameBottom < snapThreshold then
                         if snappedX then
                             newPoint = (newRelPoint == "LEFT") and "BOTTOMLEFT" or "BOTTOMRIGHT"
                             newRelPoint = newPoint
+                            newX = 0
+                            newY = 0
                         else
                             newPoint = "BOTTOM"
                             newRelPoint = "BOTTOM"
+                            newX = frameCenterX - (screenWidth / 2)
+                            newY = 0
                         end
-                        newY = 0
                         snappedY = true
                     end
 
@@ -332,12 +344,14 @@ function ns.UpdateMinimapBar()
                 end
             end
 
-            WOWForeverAddonDB.MinimapBarPosition = { point = point, relativePoint = relativePoint, x = xOfs, y = yOfs }
+            if activeDB then
+                activeDB.MinimapBarPosition = { point = point, relativePoint = relativePoint, x = xOfs, y = yOfs }
+            end
         end)
         minimapBarFrame:SetFrameStrata("MEDIUM")
 
-        if WOWForeverAddonDB.MinimapBarPosition then
-            local pos = WOWForeverAddonDB.MinimapBarPosition
+        if db and db.MinimapBarPosition then
+            local pos = db.MinimapBarPosition
             minimapBarFrame:ClearAllPoints()
             minimapBarFrame:SetPoint(pos.point, UIParent, pos.relativePoint, pos.x, pos.y)
         end

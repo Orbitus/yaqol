@@ -237,7 +237,7 @@ function ns.ShowChangelogPopup(versionOverride)
 
         local gotItTxt = gotItBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
         gotItTxt:SetPoint("CENTER", gotItBtn, "CENTER", 0, 0)
-        gotItTxt:SetText("|cffffffffVerstanden / Got it!|r")
+        gotItTxt:SetText("|cffffffffGot it!|r")
 
         gotItBtn:SetScript("OnClick", function()
             popupFrame:Hide()
@@ -250,7 +250,7 @@ function ns.ShowChangelogPopup(versionOverride)
 
         local optsTxt = optsBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         optsTxt:SetPoint("CENTER", optsBtn, "CENTER", 0, 0)
-        optsTxt:SetText("|cffda99ffOptionen öffnen|r")
+        optsTxt:SetText("|cffda99ffOpen Options|r")
 
         optsBtn:SetScript("OnClick", function()
             popupFrame:Hide()

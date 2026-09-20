@@ -1620,7 +1620,7 @@ clTitle:SetText("|cffc866ffChangelog & Update History|r")
 
 local clSub = cChangelog:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 clSub:SetPoint("TOPLEFT", clTitle, "BOTTOMLEFT", 0, -4)
-clSub:SetText("|cffa388ccEinblick in alle Versionen, neue Funktionen & Bugfixes.|r")
+clSub:SetText("|cffa388ccOverview of all releases, new features & bug fixes.|r")
 
 local viewClBtn = CreateFrame("Button", nil, cChangelog, ns.backdropTemplate)
 viewClBtn:SetSize(190, 24)
@@ -1629,7 +1629,7 @@ ns.ApplyModernBackdrop(viewClBtn, 0.45, 0.16, 0.72, 0.9, 0.85, 0.4, 1.0, 1)
 
 local viewClTxt = viewClBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 viewClTxt:SetPoint("CENTER", viewClBtn, "CENTER", 0, 0)
-viewClTxt:SetText("|cffffffffChangelog öffnen|r")
+viewClTxt:SetText("|cffffffffOpen Changelog|r")
 
 viewClBtn:SetScript("OnClick", function()
     if switchPageFn then
@@ -1644,7 +1644,7 @@ ns.ApplyModernBackdrop(viewPopBtn, 0.14, 0.07, 0.22, 0.9, 0.45, 0.2, 0.65, 0.8)
 
 local viewPopTxt = viewPopBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 viewPopTxt:SetPoint("CENTER", viewPopBtn, "CENTER", 0, 0)
-viewPopTxt:SetText("|cffda99ff'What's New' Popup anzeigen|r")
+viewPopTxt:SetText("|cffda99ffShow 'What's New' Popup|r")
 
 viewPopBtn:SetScript("OnClick", function()
     if ns.ShowChangelogPopup then
@@ -1669,10 +1669,10 @@ dcText:SetPoint("TOPLEFT", dcTitle, "BOTTOMLEFT", 0, -6)
 dcText:SetPoint("RIGHT", cDisclaimer, "RIGHT", -16, 0)
 dcText:SetJustifyH("LEFT")
 dcText:SetText(
-    "|cffe0d4f5Dieses Addon ist ein reines Hobby- & Spaßprojekt aus persönlichem Interesse am Thema WoW UI-Design & AI Vibecoding.|r\n\n" ..
-    "|cffcccccc• |cffffffff100% Vibecoded:|r Das Addon wurde fast ausschließlich via AI/Vibecoding erstellt, mit nur minimalen manuellen Code-Teilen.\n" ..
-    "• |cffffffffKein Support:|r Es gibt keinen garantierten Support. Bugs können gerne auf GitHub gemeldet werden. Wenn Zeit & Lust da sind, werden sie gefixt.\n" ..
-    "• |cffffffffFork & Share:|r Jeder ist herzlich eingeladen, sich ein eigenen Branch/Copy zu machen und selbst weiterzuentwickeln!|r"
+    "|cffe0d4f5This addon is a pure hobby & fun project built out of personal interest in WoW UI design & AI vibecoding.|r\n\n" ..
+    "|cffcccccc• |cffffffff100% Vibecoded:|r Created almost entirely via AI/vibecoding with minimal manual lines of code.\n" ..
+    "• |cffffffffNo Support Guarantee:|r There is no active or guaranteed support. Feel free to report issues on GitHub; they will be fixed when time & motivation allow.\n" ..
+    "• |cffffffffFork & Share:|r Anyone is welcome to create their own branch/fork and continue development independently!|r"
 )
 
 local ghBox = CreateFrame("EditBox", "YAQoLGitHubEditBox", cDisclaimer, ns.backdropTemplate)
@@ -1733,7 +1733,7 @@ bTitle:SetText("|cffc866ffChangelog & Release Notes|r")
 
 local bSub = cBanner:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 bSub:SetPoint("TOPLEFT", bTitle, "BOTTOMLEFT", 0, -4)
-bSub:SetText("|cffa388ccAlle Updates, neuen Funktionen und Bugfixes im Überblick.|r")
+bSub:SetText("|cffa388ccComprehensive overview of all updates, new features & bug fixes.|r")
 
 local popBtn = CreateFrame("Button", nil, cBanner, ns.backdropTemplate)
 popBtn:SetSize(180, 24)
@@ -1742,7 +1742,7 @@ ns.ApplyModernBackdrop(popBtn, 0.45, 0.16, 0.72, 0.9, 0.85, 0.4, 1.0, 1)
 
 local popTxt = popBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 popTxt:SetPoint("CENTER", popBtn, "CENTER", 0, 0)
-popTxt:SetText("|cffffffff'What's New' Popup öffnen|r")
+popTxt:SetText("|cffffffffOpen 'What's New' Popup|r")
 
 popBtn:SetScript("OnClick", function()
     if ns.ShowChangelogPopup then
@@ -2142,162 +2142,162 @@ end
 ----------------------------------------------------
 ns.SETTINGS_SEARCH_INDEX = {
     -- ACTION BARS VISIBILITY
-    { key = "MainMenuBar", name = "Aktionsleiste 1 (Hauptleiste)", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der primären Aktionsleiste (Shown / Hidden / Mouseover).",
-      keywords = "bar 1 actionbar main action leiste 1 hauptleiste", default = "SHOWN" },
-    { key = "MultiBarBottomLeft", name = "Aktionsleiste 2 (Unten Links)", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der zweiten Aktionsleiste über der Hauptleiste.",
-      keywords = "bar 2 actionbar leiste 2 unten links bottomleft", default = "SHOWN" },
-    { key = "MultiBarBottomRight", name = "Aktionsleiste 3 (Unten Rechts)", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der dritten Aktionsleiste.",
-      keywords = "bar 3 actionbar leiste 3 unten rechts bottomright", default = "SHOWN" },
-    { key = "MultiBarRight", name = "Aktionsleiste 4 (Rechts 1)", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der rechten vertikalen Leiste 1.",
-      keywords = "bar 4 actionbar leiste 4 rechts right", default = "SHOWN" },
-    { key = "MultiBarLeft", name = "Aktionsleiste 5 (Rechts 2)", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der rechten vertikalen Leiste 2.",
-      keywords = "bar 5 actionbar leiste 5 rechts links left", default = "SHOWN" },
-    { key = "MultiBar5", name = "Aktionsleiste 6", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der Aktionsleiste 6.",
-      keywords = "bar 6 actionbar leiste 6", default = "SHOWN" },
-    { key = "MultiBar6", name = "Aktionsleiste 7", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der Aktionsleiste 7.",
-      keywords = "bar 7 actionbar leiste 7", default = "SHOWN" },
-    { key = "MultiBar7", name = "Aktionsleiste 8", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der Aktionsleiste 8.",
-      keywords = "bar 8 actionbar leiste 8", default = "SHOWN" },
-    { key = "PetActionBar", name = "Pet Bar (Begleiterleiste)", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der Begleiterleiste für Jäger und Hexenmeister.",
-      keywords = "pet bar begleiter petactionbar petbar", default = "SHOWN" },
-    { key = "StanceBar", name = "Stance Bar (Haltungsleiste)", pageId = 9, category = "Aktionsleisten", type = "visibility",
-      desc = "Sichtbarkeit der Haltungs-, Auren- oder Gestaltleiste.",
-      keywords = "stance bar haltung gestalt aura druide krieger paladin stancebar", default = "SHOWN" },
+    { key = "MainMenuBar", name = "Action Bar 1 (Main Bar)", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of the primary action bar (Shown / Hidden / Mouseover).",
+      keywords = "bar 1 actionbar main action bar 1 mainbar", default = "SHOWN" },
+    { key = "MultiBarBottomLeft", name = "Action Bar 2 (Bottom Left)", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of the second action bar above the main bar.",
+      keywords = "bar 2 actionbar bar 2 bottomleft", default = "SHOWN" },
+    { key = "MultiBarBottomRight", name = "Action Bar 3 (Bottom Right)", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of the third action bar.",
+      keywords = "bar 3 actionbar bar 3 bottomright", default = "SHOWN" },
+    { key = "MultiBarRight", name = "Action Bar 4 (Right 1)", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of the right vertical bar 1.",
+      keywords = "bar 4 actionbar bar 4 right", default = "SHOWN" },
+    { key = "MultiBarLeft", name = "Action Bar 5 (Right 2)", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of the right vertical bar 2.",
+      keywords = "bar 5 actionbar bar 5 left", default = "SHOWN" },
+    { key = "MultiBar5", name = "Action Bar 6", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of action bar 6.",
+      keywords = "bar 6 actionbar bar 6", default = "SHOWN" },
+    { key = "MultiBar6", name = "Action Bar 7", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of action bar 7.",
+      keywords = "bar 7 actionbar bar 7", default = "SHOWN" },
+    { key = "MultiBar7", name = "Action Bar 8", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of action bar 8.",
+      keywords = "bar 8 actionbar bar 8", default = "SHOWN" },
+    { key = "PetActionBar", name = "Pet Action Bar", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of the pet action bar for Hunters and Warlocks.",
+      keywords = "pet bar petactionbar petbar hunter warlock", default = "SHOWN" },
+    { key = "StanceBar", name = "Stance / Form Bar", pageId = 9, category = "Action Bars", type = "visibility",
+      desc = "Visibility of the stance, aura, or shapeshift bar.",
+      keywords = "stance bar form aura druid warrior paladin stancebar", default = "SHOWN" },
 
     -- ACTION BAR MODERNIZATION
-    { key = "ActionBarCleanIcons", name = "Clean Square Icons (Icon Zoom)", pageId = 9, category = "Aktionsleisten", type = "toggle",
-      desc = "Zoomt Icons um 8% heran, um den verschwommenen Blizzard-Graurand abzuschneiden.",
-      keywords = "icon zoom square eckig sauber clean cut border rand", default = true },
-    { key = "ActionBarModernBorder", name = "1px Dark Slate Borders", pageId = 9, category = "Aktionsleisten", type = "toggle",
-      desc = "Fügt einen dezenten, gestochen scharfen 1-Pixel-Rand um jeden Aktionsbutton hinzu.",
-      keywords = "1px border rahmen pixel border slate dunkler rand", default = true },
-    { key = "ActionBarHideGryphons", name = "Hide Gryphons & Background Art", pageId = 9, category = "Aktionsleisten", type = "toggle",
-      desc = "Entfernt die Blizzard-Greifen, Löwen und Balkengrafiken an den Leisten.",
-      keywords = "gryphons greifen loewen löwen art background balken texture", default = true },
-    { key = "ActionBarAlwaysShowEmptySlots", name = "Always Show Empty Slots (Grid)", pageId = 9, category = "Aktionsleisten", type = "toggle",
-      desc = "Hält leere Aktions-Slots dauerhaft sichtbar als Dock-Gitter.",
-      keywords = "grid leere slots empty show always gitter hintergrund dock", default = true },
-    { key = "ActionBarShortHotkeys", name = "Smart Short Keybinds", pageId = 9, category = "Aktionsleisten", type = "toggle",
-      desc = "Verkürzt lange Tastenbelegungen (z.B. Strg-1 zu SR, Shift-1 zu S1, Mausrad zu WU/WD).",
-      keywords = "hotkey keybind tasten kurz short tastaturbelegung bind sr s1", default = true },
-    { key = "ActionBarHideHotkeys", name = "Hide Keybind Text", pageId = 9, category = "Aktionsleisten", type = "toggle",
-      desc = "Blendet Tastenkürzel-Texte auf allen Buttons komplett aus.",
-      keywords = "hide hotkeys keybinds verstecken tasten ausblenden", default = false },
-    { key = "ActionBarHideMacroNames", name = "Hide Macro Names", pageId = 9, category = "Aktionsleisten", type = "toggle",
-      desc = "Blendet Makro-Namen auf Buttons aus für maximale Übersicht.",
-      keywords = "macro makro namen text ausblenden hide", default = false },
+    { key = "ActionBarCleanIcons", name = "Clean Square Icons (Icon Zoom)", pageId = 9, category = "Action Bars", type = "toggle",
+      desc = "Zooms icons by 8% to crop out blurry Blizzard default borders.",
+      keywords = "icon zoom square clean cut border crop", default = true },
+    { key = "ActionBarModernBorder", name = "1px Dark Slate Borders", pageId = 9, category = "Action Bars", type = "toggle",
+      desc = "Adds a subtle 1-pixel dark border around all action buttons.",
+      keywords = "1px border frame pixel slate dark border", default = true },
+    { key = "ActionBarHideGryphons", name = "Hide Gryphons & Background Art", pageId = 9, category = "Action Bars", type = "toggle",
+      desc = "Removes Blizzard gryphons, lions, and bar background textures.",
+      keywords = "gryphons lions art background bar texture", default = true },
+    { key = "ActionBarAlwaysShowEmptySlots", name = "Always Show Empty Slots (Grid)", pageId = 9, category = "Action Bars", type = "toggle",
+      desc = "Keeps empty action slots visible as a clean grid.",
+      keywords = "grid empty slots show always background dock", default = true },
+    { key = "ActionBarShortHotkeys", name = "Smart Short Keybinds", pageId = 9, category = "Action Bars", type = "toggle",
+      desc = "Shortens keybind text (e.g. Ctrl-1 to C1, Shift-1 to S1, WheelUp to WU).",
+      keywords = "hotkey keybind short bind c1 s1 wu wd", default = true },
+    { key = "ActionBarHideHotkeys", name = "Hide Keybind Text", pageId = 9, category = "Action Bars", type = "toggle",
+      desc = "Hides hotkey text on all action buttons completely.",
+      keywords = "hide hotkeys keybinds hide keys text", default = false },
+    { key = "ActionBarHideMacroNames", name = "Hide Macro Names", pageId = 9, category = "Action Bars", type = "toggle",
+      desc = "Hides macro names on action buttons for maximum UI cleanliness.",
+      keywords = "macro names text hide clean", default = false },
 
     -- BLIZZUI VISIBILITY
     { key = "PlayerFrame", name = "Player Unit Frame", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit des eigenen Spieler-Porträts / Lebensbalkens.",
-      keywords = "player frame spieler portraet portrait leben hp unit", default = "SHOWN" },
+      desc = "Visibility of your player unit portrait and health bar.",
+      keywords = "player frame portrait hp unit", default = "SHOWN" },
     { key = "TargetFrame", name = "Target Unit Frame", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit des Ziel-Porträts und Lebensbalkens.",
-      keywords = "target frame ziel gegner portrait unit", default = "SHOWN" },
+      desc = "Visibility of target portrait and health bar.",
+      keywords = "target frame portrait unit", default = "SHOWN" },
     { key = "FocusFrame", name = "Focus Unit Frame", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit des Fokus-Ziels.",
-      keywords = "focus frame fokus unit", default = "SHOWN" },
+      desc = "Visibility of the focus target frame.",
+      keywords = "focus frame unit", default = "SHOWN" },
     { key = "MinimapCluster", name = "Minimap Cluster", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit der Minimap und des umgebenden Rahmens.",
-      keywords = "minimap karte radar cluster", default = "SHOWN" },
+      desc = "Visibility of the minimap and surrounding border.",
+      keywords = "minimap map radar cluster", default = "SHOWN" },
     { key = "ObjectiveTrackerFrame", name = "Quest / Objective Tracker", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit der Quest-Verfolgung am rechten Bildschirmrand.",
-      keywords = "quest tracker watchframe objective questlog aufgaben", default = "SHOWN" },
+      desc = "Visibility of the quest tracker on the right side of the screen.",
+      keywords = "quest tracker watchframe objective questlog", default = "SHOWN" },
     { key = "ChatFrame1", name = "Chat Window", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit des Haupt-Chatfensters.",
-      keywords = "chat fenster window text", default = "SHOWN" },
+      desc = "Visibility of the main chat window.",
+      keywords = "chat window text", default = "SHOWN" },
     { key = "BuffFrame", name = "Buffs & Debuffs", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit der Blizzard Stärkungs- und Schwächungszauber oben rechts.",
-      keywords = "buff debuff stärkungszauber auren oben", default = "SHOWN" },
+      desc = "Visibility of the top-right Blizzard buff & debuff frame.",
+      keywords = "buff debuff aura top right", default = "SHOWN" },
     { key = "MicroMenu", name = "Micro Menu Bar", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit der kleinen Menü-Buttons (Charakter, Talente, Zauberbuch).",
-      keywords = "micro menu mikromenü buttons charakter talente", default = "MOUSEOVER" },
-    { key = "BagsBar", name = "Bags Bar (Taschenleiste)", pageId = 1, category = "BlizzUI Display", type = "visibility",
-      desc = "Sichtbarkeit der Taschen-Buttons und des Rucksacks.",
-      keywords = "bags bar taschen rucksack inventar bag", default = "MOUSEOVER" },
+      desc = "Visibility of micro menu buttons (Character, Spellbook, Talents).",
+      keywords = "micro menu buttons character spellbook talents", default = "MOUSEOVER" },
+    { key = "BagsBar", name = "Bags Bar", pageId = 1, category = "BlizzUI Display", type = "visibility",
+      desc = "Visibility of the bag buttons and backpack.",
+      keywords = "bags bar backpack inventory", default = "MOUSEOVER" },
 
     -- GENERAL QOL
     { key = "AutoQuest", name = "Auto Quest Automator", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Nimmt Quests automatisch an und schließt sie ab (Shift halten zum Umgehen).",
-      keywords = "quest auto annehmen abgeben turn in accept complete", default = true },
+      desc = "Automatically accepts and turns in quests (hold Shift to bypass).",
+      keywords = "quest auto accept complete turn in", default = true },
     { key = "AutoRepair", name = "Auto Repair Gear", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Repariert Ausrüstung automatisch beim Händler und gibt Kosten im Chat aus.",
-      keywords = "repair reparieren ausrüstung gold händler merchant", default = false },
+      desc = "Automatically repairs equipment at vendors and prints cost to chat.",
+      keywords = "repair gear merchant gold vendor", default = false },
     { key = "AutoSellGreys", name = "Auto Sell Junk (Greys)", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Verkauft graue Müll-Gegenstände automatisch beim Öffnen eines Händlers.",
-      keywords = "sell greys junk schrott grau verkaufen merchant händler", default = true },
+      desc = "Automatically sells grey junk items when opening a merchant.",
+      keywords = "sell greys junk grey vendor merchant", default = true },
     { key = "FastLoot", name = "Fast Speed Looting", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Plündert alle Gegenstände in einem einzigen Tick ohne künstliche Verzögerung.",
-      keywords = "fast loot schnell plündern beute drop instant", default = true },
+      desc = "Loots all items instantly in a single tick without artificial delay.",
+      keywords = "fast loot speed drop instant loot", default = true },
     { key = "MaxCameraZoom", name = "Max Camera Distance", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Erhöht die maximale Kamera-Entfernung für bessere Kampfübersicht.",
-      keywords = "camera zoom kamera abstand sicht distance max", default = true },
+      desc = "Increases maximum camera zoom distance for superior combat overview.",
+      keywords = "camera zoom distance max overview", default = true },
     { key = "HideRedErrors", name = "Hide Red Combat Errors", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Filtert störende rote Fehlermeldungen (z.B. 'Nicht genug Energie', 'Fähigkeit nicht bereit').",
-      keywords = "error fehler rot red combat kampf uierrorsframe cooldown wut mana", default = true },
+      desc = "Filters out red error messages (e.g. 'Not enough energy', 'Ability not ready').",
+      keywords = "error red combat uierrorsframe cooldown energy mana", default = true },
     { key = "AutoDismount", name = "Auto-Dismount on Action", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Sitzt beim Wirken von Zaubern oder Aktionen automatisch vom Reittier ab.",
-      keywords = "dismount mount reittier absitzen zaubern cast", default = true },
+      desc = "Automatically dismounts when casting a spell or performing an action.",
+      keywords = "dismount mount cast action", default = true },
     { key = "ChatCopyURL", name = "Chat: Clickable URL Links", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Macht Web- und Discord-Links im Chat klickbar mit praktischem Kopier-Dialog.",
-      keywords = "url link copy kopieren chat webadresse discord", default = true },
+      desc = "Makes web and Discord links in chat clickable with a quick copy dialog.",
+      keywords = "url link copy chat web discord", default = true },
     { key = "ChatClassColors", name = "Chat: Class Colored Names", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Färbt Spielernamen im Chat automatisch in ihren Klassenfarben ein.",
-      keywords = "chat class colors klassenfarben name farbe spieler", default = true },
+      desc = "Colors player names in chat according to their class.",
+      keywords = "chat class colors name player color", default = true },
     { key = "ChatShortChannels", name = "Chat: Short Channel Tags", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Kürzt Kanalnamen ab (z.B. [1. Allgemein] -> [1], [Gilde] -> [G]).",
-      keywords = "chat short channels kanal kanäle abkürzen [g] [1]", default = true },
+      desc = "Shortens channel tags (e.g. [1. General] -> [1], [Guild] -> [G]).",
+      keywords = "chat short channels tags [g] [1]", default = true },
     { key = "QuestAutoMarkTarget", name = "Quest Mob: Target Auto-Marker", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Setzt automatisch den Totenkopf-Raidmarker auf dein anvisiertes Ziel, wenn es für eine aktive Quest benötigt wird.",
-      keywords = "quest mob marker totenkopf skull auto raidmarker target ziel", default = true },
-    { key = "QuestNameplateHighlight", name = "Quest Mob: Nameplate Icon & Fortschritt", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Zeigt ein goldenes Quest-Icon und den Ziel-Fortschritt (z.B. [0/8]) direkt über den Namensplaketten von Quest-Gegnern an.",
-      keywords = "quest mob nameplate plakette icon symbol highlight leiste", default = true },
+      desc = "Automatically places the skull raid marker on your targeted mob if required for an active quest.",
+      keywords = "quest mob marker skull auto raidmarker target", default = true },
+    { key = "QuestNameplateHighlight", name = "Quest Mob: Nameplate Icon & Progress", pageId = 2, category = "General QoL", type = "toggle",
+      desc = "Displays a quest icon and progress text (e.g. [0/8]) directly above quest mob nameplates.",
+      keywords = "quest mob nameplate icon highlight progress", default = true },
 
     -- BUFF & PET REMINDERS
     { key = "BuffReminder", name = "Buff Reminder Master", pageId = 3, category = "Buff & Pet Reminders", type = "toggle",
-      desc = "Blendet ein dezentes Symbol ein, wenn Klassen-Buffs fehlen.",
-      keywords = "buff reminder fehlende buffs auren stärkungszauber", default = true },
+      desc = "Displays an alert icon when essential class buffs are missing.",
+      keywords = "buff reminder missing buffs aura alert", default = true },
     { key = "PetReminder", name = "Pet Reminder Master", pageId = 3, category = "Buff & Pet Reminders", type = "toggle",
-      desc = "Erinnert Jäger und Hexenmeister daran, wenn ihr Begleiter nicht aktiv ist.",
-      keywords = "pet reminder begleiter fehlen petactionbar jager hexer", default = true },
+      desc = "Reminds Hunters and Warlocks when their active pet is missing.",
+      keywords = "pet reminder missing hunter warlock", default = true },
 
     -- MINIMAP COLLECTOR BAR
     { key = "MinimapBarEnabled", name = "Minimap Collector Bar (HidingBar)", pageId = 4, category = "Minimap HidingBar", type = "toggle",
-      desc = "Sammelt Addon-Symbole an der Minimap in einer eleganten Leiste.",
-      keywords = "minimap bar collector hidingbar addons leiste minimapbar", default = true },
+      desc = "Collects minimap addon buttons into a sleek expandable bar.",
+      keywords = "minimap bar collector hidingbar addon minimapbar", default = true },
     { key = "MinimapBarMouseover", name = "Minimap Bar Mouseover Fade", pageId = 4, category = "Minimap HidingBar", type = "toggle",
-      desc = "Blendet die Addon-Leiste nur ein, wenn du mit der Maus darüber fährst.",
-      keywords = "minimap bar mouseover einblenden fade maus", default = true },
+      desc = "Fades in the addon bar only when hovering over it with the mouse.",
+      keywords = "minimap bar mouseover fade hover", default = true },
     { key = "MinimapBarSnapToEdge", name = "Snap to Screen Edge", pageId = 4, category = "Minimap HidingBar", type = "toggle",
-      desc = "Dockt die Leiste automatisch am linken oder rechten Bildschirmrand an.",
-      keywords = "minimap bar snap dock andocken rand", default = true },
+      desc = "Automatically snaps the collector bar to the screen edge.",
+      keywords = "minimap bar snap dock edge", default = true },
 
     -- LEVELING & ANALYTICS
     { key = "XPBarEnabled", name = "Custom XP & Leveling Bar", pageId = 6, category = "XP Bar & Analytics", type = "toggle",
-      desc = "Aktiviert die moderne, minimalistische Erfahrungsleiste.",
-      keywords = "xp bar leveling erfahrung level levelbar fortschritt", default = true },
+      desc = "Enables the modern, minimalist experience & leveling bar.",
+      keywords = "xp bar leveling experience level progress", default = true },
     { key = "XPBarShowStats", name = "XP Bar Stats & Rested Numbers", pageId = 6, category = "XP Bar & Analytics", type = "toggle",
-      desc = "Zeigt genaue XP-Zahlen und Erholt-Boni auf der Leiste an.",
-      keywords = "xp stats zahlen prozent erholt rested", default = true },
+      desc = "Displays exact XP numbers and rested bonuses on the bar.",
+      keywords = "xp stats numbers percent rested bonus", default = true },
     { key = "XPBarShowQuestOverlay", name = "Quest XP Preview Overlay", pageId = 6, category = "XP Bar & Analytics", type = "toggle",
-      desc = "Zeigt den Erfahrungs-Vorschauwert für fertige und aktive Quests auf der XP-Leiste an.",
-      keywords = "quest xp overlay vorschau preview questfortschritt", default = true },
+      desc = "Displays XP preview overlay for completed and active quests on the XP bar.",
+      keywords = "quest xp overlay preview progress", default = true },
     { key = "LevelUpBannerEnabled", name = "Level-Up Fanfare Banner", pageId = 6, category = "XP Bar & Analytics", type = "toggle",
-      desc = "Spielt beim Stufenaufstieg ein elegantes Banner mit Fanfare ab.",
-      keywords = "levelup level banner fanfare stufenaufstieg gratulation", default = true },
+      desc = "Plays a celebration banner and fanfare upon leveling up.",
+      keywords = "levelup level banner fanfare congrats", default = true },
     { key = "LevelUpScreenshot", name = "Auto-Screenshot on Level-Up", pageId = 6, category = "XP Bar & Analytics", type = "toggle",
-      desc = "Erstellt automatisch einen Screenshot, wenn dein Charakter ein Level aufsteigt.",
-      keywords = "screenshot bildschirmfoto level aufstieg bild photo", default = true },
+      desc = "Automatically captures a screenshot when your character levels up.",
+      keywords = "screenshot level photo levelup", default = true },
 }
 
 local searchEditBox = nil
@@ -2426,13 +2426,13 @@ function ns.PerformSearch(query)
     end
 
     if #matches == 0 then
-        searchStatusText:SetText(string.format("|cffff5577Keine Einstellungen gefunden für |r|cffffffff\"%s\"|r\n|cffa388ccSuchtipps: 'loot', 'bar', 'tasche', 'quest', 'hotkey', 'error', 'buff', 'zoom'|r", query))
+        searchStatusText:SetText(string.format("|cffff5577No settings found for |r|cffffffff\"%s\"|r\n|cffa388ccSearch tips: 'loot', 'bar', 'bag', 'quest', 'hotkey', 'error', 'buff', 'zoom'|r", query))
         for _, w in ipairs(resultCards) do w.card:Hide() end
         searchContent:SetSize(460, 100)
         return
     end
 
-    searchStatusText:SetText(string.format("|cffda99ff%d Treffer gefunden für |r|cffffffff\"%s\"|r:", #matches, query))
+    searchStatusText:SetText(string.format("|cffda99ff%d results found for |r|cffffffff\"%s\"|r:", #matches, query))
 
     for i, item in ipairs(matches) do
         local w = GetOrCreateResultCard(i)
@@ -2444,7 +2444,7 @@ function ns.PerformSearch(query)
         w.title:SetText("|cffda99ff" .. item.name .. "|r")
         w.desc:SetText("|cffa388cc" .. item.desc .. "|r")
 
-        ns.AttachOptionTooltip(w.card, item.name, item.desc, "Kategorie: " .. item.category, item.default)
+        ns.AttachOptionTooltip(w.card, item.name, item.desc, "Category: " .. item.category, item.default)
 
         w.jumpBtn:SetScript("OnClick", function()
             if searchEditBox then
@@ -2455,7 +2455,7 @@ function ns.PerformSearch(query)
                 switchPageFn(item.pageId)
             end
         end)
-        ns.AttachOptionTooltip(w.jumpBtn, "Kategorie öffnen", "Springt direkt zum Tab '" .. item.category .. "'.")
+        ns.AttachOptionTooltip(w.jumpBtn, "Open Category", "Jumps directly to category '" .. item.category .. "'.")
 
         local db = ns.db or WOWForeverAddonDB
         if item.type == "toggle" then
@@ -2529,9 +2529,9 @@ function ns.PerformSearch(query)
             w.pillH:SetScript("OnClick", function() PillClick("HIDDEN") end)
             w.pillM:SetScript("OnClick", function() PillClick("MOUSEOVER") end)
 
-            ns.AttachOptionTooltip(w.pillS, "Shown", "Dauerhaft anzeigen.")
-            ns.AttachOptionTooltip(w.pillH, "Hidden", "Dauerhaft verbergen.")
-            ns.AttachOptionTooltip(w.pillM, "Mouseover", "Nur beim Drüberfahren mit der Maus anzeigen.")
+            ns.AttachOptionTooltip(w.pillS, "Shown", "Always show element.")
+            ns.AttachOptionTooltip(w.pillH, "Hidden", "Always hide element.")
+            ns.AttachOptionTooltip(w.pillM, "Mouseover", "Show only when hovering with mouse.")
         end
     end
 
@@ -2564,7 +2564,7 @@ local function CreateSearchPanel(contentArea)
     sStatus:SetPoint("TOPLEFT", searchPanel, "TOPLEFT", 6, -6)
     sStatus:SetPoint("RIGHT", searchPanel, "RIGHT", -10, 0)
     sStatus:SetJustifyH("LEFT")
-    sStatus:SetText("|cffa388ccGib einen Suchbegriff ein...|r")
+    sStatus:SetText("|cffa388ccEnter search query...|r")
     searchStatusText = sStatus
 end
 
@@ -2606,7 +2606,7 @@ local function CreateSearchBar(optionsFrame, contentArea, onSwitchPage)
 
     local placeholder = editBox:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     placeholder:SetPoint("LEFT", editBox, "LEFT", 0, 0)
-    placeholder:SetText("|cff775599Suche / Search...|r")
+    placeholder:SetText("|cff775599Search settings...|r")
 
     editBox:SetScript("OnTextChanged", function(self)
         local text = self:GetText()
@@ -2640,7 +2640,7 @@ local function CreateSearchBar(optionsFrame, contentArea, onSwitchPage)
         ns.PerformSearch("")
     end)
 
-    ns.AttachOptionTooltip(searchContainer, "Einstellungen durchsuchen", "Tippe hier einen beliebigen Begriff ein (z.B. 'loot', 'bar', 'quest', 'hotkey'), um passende Einstellungen sofort zu finden und direkt umzuschalten.")
+    ns.AttachOptionTooltip(searchContainer, "Search Settings", "Type any keyword here (e.g., 'loot', 'bar', 'quest', 'hotkey') to quickly find matching options.")
 
     return searchContainer
 end
@@ -2727,7 +2727,7 @@ function ns.CreateOptionsGUI()
     -- Define Nav Pages for YAQoL v2.0
     local pages = {
         { id = 1, category = "MAIN FEATURES", label = "BlizzUI Display" },
-        { id = 9, category = "MAIN FEATURES", label = "Aktionsleisten" },
+        { id = 9, category = "MAIN FEATURES", label = "Action Bars" },
         { id = 6, category = "LEVELING FEATURES", label = "XP Bar & Analytics" },
         { id = 2, category = "QUALITY OF LIFE", label = "General QoL" },
         { id = 3, category = "QUALITY OF LIFE", label = "Buff & Pet Reminders" },

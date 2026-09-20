@@ -2256,9 +2256,6 @@ ns.SETTINGS_SEARCH_INDEX = {
     { key = "ChatShortChannels", name = "Chat: Short Channel Tags", pageId = 2, category = "General QoL", type = "toggle",
       desc = "Shortens channel tags (e.g. [1. General] -> [1], [Guild] -> [G]).",
       keywords = "chat short channels tags [g] [1]", default = true },
-    { key = "QuestAutoMarkTarget", name = "Quest Mob: Target Auto-Marker", pageId = 2, category = "General QoL", type = "toggle",
-      desc = "Automatically places the skull raid marker on your targeted mob if required for an active quest.",
-      keywords = "quest mob marker skull auto raidmarker target", default = true },
     { key = "QuestNameplateHighlight", name = "Quest Mob: Nameplate Icon & Progress", pageId = 2, category = "General QoL", type = "toggle",
       desc = "Displays a quest icon and progress text (e.g. [0/8]) directly above quest mob nameplates.",
       keywords = "quest mob nameplate icon highlight progress", default = true },
@@ -2680,7 +2677,7 @@ function ns.CreateOptionsGUI()
     topBar:SetColorTexture(0.72, 0.25, 1.0, 1.0)
 
     -- Title & Subtitle for YAQoL
-    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.15"
+    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.16"
     local title = optionsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", optionsFrame, "TOPLEFT", 22, -16)
     title:SetText("|cffc866ffYAQoL|r  |cff775599•|r  |cffffffffYet Another Quality of Life|r  |cff00ffccv" .. tostring(verStr) .. "|r")

@@ -1,16 +1,13 @@
--- Modules/QuestMobAutomarker.lua: Quest Mob Target Auto-Marker & Nameplate Indicator
+-- Modules/QuestMobAutomarker.lua: Quest Mob Nameplate Indicator
 -- Author: Antigravity
 -- NOTE: Nameplate indicators are parented to UIParent (not the nameplate frame)
 --       to avoid tainting Blizzard's secure nameplate hierarchy.
---       SetRaidTarget is guarded by InCombatLockdown() and pending marks are
---       applied once combat ends (PLAYER_REGEN_ENABLED).
 
 local ADDON_NAME, ns = ...
 
 local questFrame = CreateFrame("Frame", "YAQoLQuestMobFrame")
 local scanTooltip = nil
 local nameplateIndicators = {} -- keyed by nameplate frame
-local pendingMarkUnit = nil    -- unit token queued for marking after combat
 
 -- Hidden tooltip helper for objective scanning fallback
 local function GetOrCreateScanTooltip()
@@ -254,61 +251,15 @@ local function RefreshAllNameplates()
 end
 ns.RefreshQuestNameplates = RefreshAllNameplates
 
--- Helper to check if setting a raid target marker is permitted without errors
-local function CanSetRaidMarker()
-    local inInstance, instanceType = IsInInstance()
-    if inInstance and (instanceType == "party" or instanceType == "pvp" or instanceType == "raid") then
-        return false -- Strictly disabled in dungeons/raids to comply with Blizzard instance protection rules
-    end
-    if IsInGroup() then
-        return UnitIsGroupLeader("player") or UnitIsGroupAssistant("player")
-    end
-    return true -- Solo player in open world
-end
-
-local function ApplyPendingMark()
-    if InCombatLockdown() or not CanSetRaidMarker() then return end
-    if pendingMarkUnit and UnitExists(pendingMarkUnit) and not UnitIsDead(pendingMarkUnit) then
-        if GetRaidTargetIndex and GetRaidTargetIndex(pendingMarkUnit) == nil then
-            SetRaidTarget(pendingMarkUnit, 4) -- 4 = Orange Circle (Quest Target)
-        end
-    end
-    pendingMarkUnit = nil
-end
-
-local function OnTargetChanged()
-    local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
-    if not db or not db.QuestAutoMarkTarget or not CanSetRaidMarker() then return end
-
-    if not UnitExists("target") or UnitIsDead("target") or UnitIsPlayer("target") or UnitIsFriend("player", "target") then
-        return
-    end
-
-    local isQuest = ns.IsQuestUnit("target")
-    if isQuest then
-        if GetRaidTargetIndex and GetRaidTargetIndex("target") == nil then
-            if InCombatLockdown() then
-                pendingMarkUnit = "target"
-            else
-                SetRaidTarget("target", 4)
-            end
-        end
-    end
-end
-
 ----------------------------------------------------
 -- EVENT DISPATCHER & LIFECYCLE
 ----------------------------------------------------
-questFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 questFrame:RegisterEvent("NAME_PLATE_UNIT_ADDED")
 questFrame:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
 questFrame:RegisterEvent("QUEST_LOG_UPDATE")
-questFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- fires when combat ends
 
 questFrame:SetScript("OnEvent", function(self, event, arg1)
-    if event == "PLAYER_TARGET_CHANGED" then
-        OnTargetChanged()
-    elseif event == "NAME_PLATE_UNIT_ADDED" then
+    if event == "NAME_PLATE_UNIT_ADDED" then
         OnNameplateAdded(arg1)
     elseif event == "NAME_PLATE_UNIT_REMOVED" then
         OnNameplateRemoved(arg1)
@@ -319,8 +270,5 @@ questFrame:SetScript("OnEvent", function(self, event, arg1)
         else
             RefreshAllNameplates()
         end
-    elseif event == "PLAYER_REGEN_ENABLED" then
-        -- Combat ended: apply any queued raid marker
-        ApplyPendingMark()
     end
 end)

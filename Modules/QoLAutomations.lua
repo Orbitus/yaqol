@@ -56,14 +56,9 @@ ns.GENERAL_QOL_FEATURES = {
         desc = "Shortens chat channel tags to clean abbreviations (e.g. [1. General] -> [1], [Guild] -> [G])." 
     },
     { 
-        key = "QuestAutoMarkTarget", 
-        name = "Quest Mob: Target Auto-Marker", 
-        desc = "Setzt automatisch den Totenkopf-Raidmarker auf dein anvisiertes Ziel, wenn es für eine aktive Quest benötigt wird." 
-    },
-    { 
         key = "QuestNameplateHighlight", 
-        name = "Quest Mob: Nameplate Icon & Fortschritt", 
-        desc = "Zeigt ein goldenes Quest-Icon und den Ziel-Fortschritt (z.B. [0/8]) direkt über den Namensplaketten von Quest-Gegnern an." 
+        name = "Quest Mob: Nameplate Icon & Progress", 
+        desc = "Displays a golden quest icon and objective progress (e.g. [0/8]) directly above nameplates of quest targets." 
     },
 }
 

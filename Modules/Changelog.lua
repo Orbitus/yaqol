@@ -4,6 +4,19 @@ local ADDON_NAME, ns = ...
 -- Centralized Version History & Changelog Database
 ns.CHANGELOG_DATA = {
     {
+        version = "2.0.16",
+        date = "2026-09-20",
+        title = "GitHub README & Target Marker Cleanup",
+        general = {
+            "Added comprehensive README.md file for GitHub repository and Wago.io auto-import.",
+            "Removed target raid auto-marker functionality to comply with Blizzard addon policies."
+        },
+        features = {
+            "Quest Mob Nameplate Icon & Progress text remain fully active as the primary objective indicator."
+        },
+        fixes = {}
+    },
+    {
         version = "2.0.15",
         date = "2026-09-20",
         title = "English Localization & UI Polish",
@@ -159,7 +172,7 @@ local popupFrame = nil
 
 -- Create & Show First-Login Version Changelog Popup
 function ns.ShowChangelogPopup(versionOverride)
-    local curVersion = versionOverride or ((C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.15")
+    local curVersion = versionOverride or ((C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.16")
     
     -- Find entry for curVersion or fallback to latest entry
     local entry = ns.CHANGELOG_DATA[1]
@@ -331,7 +344,7 @@ end
 
 -- Automatic login check for new addon version
 function ns.CheckVersionPopupOnLogin()
-    local curVersion = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.15"
+    local curVersion = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.16"
     local db = ns.db or WOWForeverAddonDB
     if not db then return end
 

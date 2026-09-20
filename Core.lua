@@ -62,7 +62,6 @@ ns.defaultSettings = {
     ChatCopyURL = true,
     ChatClassColors = true,
     ChatShortChannels = true,
-    QuestAutoMarkTarget = true,
     QuestNameplateHighlight = true,
 
     -- Addon Minimap Collector Bar (HidingBar)
@@ -144,7 +143,6 @@ ns.UserPresetDB = {
     ChatCopyURL = true,
     ChatClassColors = true,
     ChatShortChannels = true,
-    QuestAutoMarkTarget = true,
     QuestNameplateHighlight = true,
 
     -- Addon Minimap Collector Bar (HidingBar)

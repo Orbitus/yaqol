@@ -2482,10 +2482,11 @@ function ns.CreateOptionsGUI()
     topBar:SetHeight(3)
     topBar:SetColorTexture(0.72, 0.25, 1.0, 1.0)
 
-    -- Title & Subtitle for YAQoL v2.0
+    -- Title & Subtitle for YAQoL
+    local verStr = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or (GetAddOnMetadata and GetAddOnMetadata("YAQoL", "Version")) or "2.0.2"
     local title = optionsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", optionsFrame, "TOPLEFT", 22, -16)
-    title:SetText("|cffc866ffYAQoL|r  |cff775599•|r  |cffffffffYet Another Quality of Life|r  |cff9977bbv2.0.0|r")
+    title:SetText("|cffc866ffYAQoL|r  |cff775599•|r  |cffffffffYet Another Quality of Life|r  |cff00ffccv" .. tostring(verStr) .. "|r")
 
     local subtitle = optionsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)

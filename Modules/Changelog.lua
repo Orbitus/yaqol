@@ -4,6 +4,22 @@ local ADDON_NAME, ns = ...
 -- Centralized Version History & Changelog Database
 ns.CHANGELOG_DATA = {
     {
+        version = "2.0.13",
+        date = "2026-09-20",
+        title = "Nameplate Quest Indicator Anchoring & Quest Giver Filter",
+        general = {
+            "Re-anchored Quest Mob nameplate indicator directly above unit name/healthbar.",
+            "Filtered out friendly and neutral Quest Giver NPCs from showing mob quest indicators."
+        },
+        features = {
+            "Smart stacked alignment when Raid Target Markers are active on quest mobs."
+        },
+        fixes = {
+            "Fixed Quest Mob indicator floating high above the nameplate frame.",
+            "Prevented quest indicator overlapping on quest-giver NPCs."
+        }
+    },
+    {
         version = "2.0.12",
         date = "2026-09-20",
         title = "In-Game Changelog & Update Notification Popup",
@@ -117,7 +133,7 @@ local popupFrame = nil
 
 -- Create & Show First-Login Version Changelog Popup
 function ns.ShowChangelogPopup(versionOverride)
-    local curVersion = versionOverride or ((C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.12")
+    local curVersion = versionOverride or ((C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.13")
     
     -- Find entry for curVersion or fallback to latest entry
     local entry = ns.CHANGELOG_DATA[1]
@@ -289,7 +305,7 @@ end
 
 -- Automatic login check for new addon version
 function ns.CheckVersionPopupOnLogin()
-    local curVersion = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.12"
+    local curVersion = (C_AddOns and C_AddOns.GetAddOnMetadata) and C_AddOns.GetAddOnMetadata("YAQoL", "Version") or "2.0.13"
     local db = ns.db or WOWForeverAddonDB
     if not db then return end
 

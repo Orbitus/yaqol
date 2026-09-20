@@ -26,7 +26,7 @@ local unitQuestCache = {}
 -- Detects if a given unit is required for an active quest (Cached per unit GUID)
 function ns.IsQuestUnit(unit)
     if not unit or not UnitExists(unit) then return false end
-    if UnitIsPlayer(unit) or UnitIsDead(unit) or UnitIsFriend("player", unit) then return false end
+    if UnitIsPlayer(unit) or UnitIsDead(unit) or UnitIsFriend("player", unit) or not UnitCanAttack("player", unit) then return false end
 
     local guid = UnitGUID(unit)
     if guid and unitQuestCache[guid] ~= nil then
@@ -106,6 +106,52 @@ end
 ----------------------------------------------------
 -- OPTION 3: NAMEPLATE QUEST OBJECTIVE HIGHLIGHT
 ----------------------------------------------------
+local function GetNameplateAnchor(nameplateFrame, unit)
+    if not nameplateFrame then return nameplateFrame, "TOP", 0, 0 end
+
+    local uf = nameplateFrame.UnitFrame or nameplateFrame.unitFrame or nameplateFrame.UF
+    local anchorFrame = nameplateFrame
+    local anchorPoint = "TOP"
+    local xOff = 0
+    local yOff = 1
+
+    if uf then
+        if uf.name and uf.name:IsShown() then
+            anchorFrame = uf.name
+            anchorPoint = "TOP"
+            yOff = 1
+        elseif uf.Name and uf.Name:IsShown() then
+            anchorFrame = uf.Name
+            anchorPoint = "TOP"
+            yOff = 1
+        elseif uf.healthBar and uf.healthBar:IsShown() then
+            anchorFrame = uf.healthBar
+            anchorPoint = "TOP"
+            yOff = 12
+        elseif uf.HealthBar and uf.HealthBar:IsShown() then
+            anchorFrame = uf.HealthBar
+            anchorPoint = "TOP"
+            yOff = 14
+        else
+            anchorFrame = uf
+            anchorPoint = "TOP"
+            yOff = 2
+        end
+    else
+        -- Fallback for raw C_NamePlate frame container
+        anchorFrame = nameplateFrame
+        anchorPoint = "CENTER"
+        yOff = 14
+    end
+
+    -- If a raid target marker icon (like orange circle) is present on this unit, offset up slightly to stack cleanly!
+    if unit and GetRaidTargetIndex and GetRaidTargetIndex(unit) then
+        yOff = yOff + 16
+    end
+
+    return anchorFrame, anchorPoint, xOff, yOff
+end
+
 local function GetOrCreateNameplateIndicator(nameplateFrame)
     if nameplateIndicators[nameplateFrame] then
         return nameplateIndicators[nameplateFrame]
@@ -116,7 +162,6 @@ local function GetOrCreateNameplateIndicator(nameplateFrame)
     ind:SetFrameStrata("HIGH")
     ind:SetFrameLevel(200)
     ind.nameplateRef = nameplateFrame
-    ind:SetPoint("BOTTOM", nameplateFrame, "TOP", 0, 1)
 
     local icon = ind:CreateTexture(nil, "OVERLAY")
     icon:SetSize(16, 16)
@@ -146,7 +191,7 @@ local function UpdateNameplate(unit)
     local db = ns.db or _G["YAQoLDB"] or _G["WOWForeverAddonDB"]
     local enabled = db and db.QuestNameplateHighlight
 
-    if not enabled or UnitIsDead(unit) or UnitIsPlayer(unit) or not UnitCanAttack("player", unit) then
+    if not enabled or UnitIsDead(unit) or UnitIsPlayer(unit) or UnitIsFriend("player", unit) or not UnitCanAttack("player", unit) then
         if nameplateIndicators[nameplateFrame] then
             nameplateIndicators[nameplateFrame]:Hide()
         end
@@ -156,8 +201,9 @@ local function UpdateNameplate(unit)
     local isQuest, qText, cur, goal = ns.IsQuestUnit(unit)
     if isQuest then
         local ind = GetOrCreateNameplateIndicator(nameplateFrame)
+        local anchorFrame, anchorPoint, xOff, yOff = GetNameplateAnchor(nameplateFrame, unit)
         ind:ClearAllPoints()
-        ind:SetPoint("BOTTOM", nameplateFrame, "TOP", 0, 1)
+        ind:SetPoint("BOTTOM", anchorFrame, anchorPoint, xOff, yOff)
         if cur and goal then
             ind.text:SetText(string.format("%s/%s", cur, goal))
             ind:SetWidth(18 + ind.text:GetStringWidth())

@@ -1,7 +1,7 @@
 # YAQoL - Yet Another Quality of Life Addon
 
-[![Version](https://img.shields.io/badge/version-2.0.16-blue.svg)](https://github.com/Kontaktspray/WOWForeverAddon/releases)
-[![WoW Version](https://img.shields.io/badge/WoW-Classic%20%7C%20Anniversary%20%7C%20Mainline-orange.svg)](https://github.com/Kontaktspray/WOWForeverAddon)
+[![Version](https://img.shields.io/badge/version-2.0.16-blue.svg)](https://github.com/Orbitus/yaqol/releases)
+[![WoW Version](https://img.shields.io/badge/WoW-Classic%20%7C%20Anniversary%20%7C%20Mainline-orange.svg)](https://github.com/Orbitus/yaqol)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 **YAQoL (Yet Another Quality of Life Addon)** is a lightweight, all-in-one quality-of-life suite for World of Warcraft (Classic Era, Hardcore, Anniversary & Retail). Designed to eliminate tedious manual tasks, streamline chat, optimize camera controls, and highlight quest objectives directly on enemy nameplates, YAQoL improves your daily gameplay without clogging your UI.
@@ -64,13 +64,13 @@ Features include:
 > **This project is 100% Vibe Coded.**
 > YAQoL was created almost exclusively using modern AI assistance, with minimal manually written code lines. It was developed purely as a personal hobby project for fun and to experiment with WoW addon development.
 >
-> **Support Notice**: There is no dedicated or formal support service for this addon. However, feel free to submit bug reports or suggestions via the [GitHub Issues](https://github.com/Kontaktspray/WOWForeverAddon/issues) page. When time and interest allow, issues may be investigated and resolved. If you would like to customize or extend the project, feel free to fork the repository!
+> **Support Notice**: There is no dedicated or formal support service for this addon. However, feel free to submit bug reports or suggestions via the [GitHub Issues](https://github.com/Orbitus/yaqol/issues) page. When time and interest allow, issues may be investigated and resolved. If you would like to customize or extend the project, feel free to fork the repository!
 
 ---
 
 ## 📥 Installation
 
-1. Download the latest release `.zip` from [GitHub Releases](https://github.com/Kontaktspray/WOWForeverAddon/releases) or install directly via **Wago.io / WoWUp / CurseForge**.
+1. Download the latest release `.zip` from [GitHub Releases](https://github.com/Orbitus/yaqol/releases) or install directly via **Wago.io / WoWUp / CurseForge**.
 2. Extract the folder into your World of Warcraft directory:
    `World of Warcraft\_retail_\Interface\AddOns\` (or `_classic_`)
 3. Ensure the folder name inside `AddOns` is `WOWForeverAddon` or `YAQoL`.

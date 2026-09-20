@@ -1,0 +1,31 @@
+name: Release Addon Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create WoW Addon Zip Package
+        run: |
+          mkdir -p staging/YAQoL
+          cp -r Core.lua YAQoL.lua YAQoL.toc Modules staging/YAQoL/
+          cd staging
+          zip -r ../YAQoL.zip YAQoL
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: YAQoL.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,8 +1,8 @@
 ## Interface: 16001
-## Title: |cffc866ffYAQoL|r |cff00ffcc[v2.0.8]|r - Yet Another Quality of Life
+## Title: |cffc866ffYAQoL|r |cff00ffcc[v2.0.9]|r - Yet Another Quality of Life
 ## Notes: Clean UI Visibility, Minimalist Quality of Life & Automations.
 ## Author: Orbitus / Liiina & Antigravity
-## Version: 2.0.8
+## Version: 2.0.9
 ## X-AddonProvider: github
 ## X-Website: https://github.com/Orbitus/yaqol
 ## SavedVariables: YAQoLDB, WOWForeverAddonDB

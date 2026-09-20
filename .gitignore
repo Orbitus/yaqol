@@ -1,0 +1,8 @@
+# Temporary & Scratch files
+scratch/
+*.tmp
+*.bak
+
+# Antigravity agent files
+.agents/
+.gemini/

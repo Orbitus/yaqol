@@ -1,0 +1,19 @@
+## Interface: 16001
+## Title: |cffc866ffYAQoL|r - Yet Another Quality of Life
+## Notes: Clean UI Visibility, Minimalist Quality of Life & Automations.
+## Author: Orbitus / Liiina & Antigravity
+## Version: 2.0.0
+## SavedVariables: YAQoLDB, WOWForeverAddonDB
+## LoadSavedVariablesFirst: 1
+
+Core.lua
+Modules\ProfileManager.lua
+Modules\UIElementManager.lua
+Modules\QoLAutomations.lua
+Modules\QuestMobAutomarker.lua
+Modules\BuffReminder.lua
+Modules\MinimapBar.lua
+Modules\LevelingFeatures.lua
+Modules\ActionBarModernizer.lua
+Modules\ChatEnhancements.lua
+Modules\OptionsGUI.lua
